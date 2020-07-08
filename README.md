@@ -40,7 +40,7 @@ Things you may want to cover:
 |Column|Type|Options|
 |------|----|-------|
 |name|string|index: true, null:false, unique: true|
-|mail|string|null:false|
+|email|string|null:false|
 |password|string|null: false|
 
 ### Association
@@ -51,6 +51,8 @@ Things you may want to cover:
 ## messagesテーブル
 |Column|Type|Options|
 |------|----|-------|
+|body|text||
+|image|string||
 |group_id|integer|null:false,foreign_key: true|
 |user_id|integer|null:false,foreign_key: true|
 
