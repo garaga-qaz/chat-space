@@ -42,15 +42,23 @@
     height: calc(100vh - 100px);
     background-color: #2f3e51;
     padding: 0  20px;
-    color: #ffffff;
-    &__group{
+    overflow: scroll;
+    a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+      &__group{
       box-sizing: border-box;
       padding: 20px 0 40px;
-      font-size: 15px;
-      font-weight: bold;
-      &__name{
-        font-size: 11px;
-      }
+      // font-size: 15px;
+      // font-weight: bold;
+        &__name{
+          font-size: 15px;
+        }
+        &__message{
+          font-size: 11px;
+          margin-top: 5px;
+        }
     }
   }
 }  
