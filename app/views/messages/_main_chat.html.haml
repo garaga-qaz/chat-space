@@ -1,39 +1,36 @@
 .chat-main
   .chat-main__group-info
     .chat-main__group-info__group
-      test
+      = @group.name
       %ul.chat-main__group-info__member
         Member：
         %li.chat-main__group-info__member__name
-          masa
+          - @group.users.each do |user|
+            = user.name
+
+
+
     .chat-main__group-info__edit
-      = link_to "#", class: "edit" do
+      = link_to edit_group_path(@group), class: "edit" do
         Edit
+
   .chat-main__message-list
-    .chat-main__message-list__message-box
-      .chat-main__message-list__message-box__info
-        .username
-          masa
-        .daydata
-          2020/07/20(tue) 17:43:01
-      .chat-main__message-list__message-box__message
-        %p.comment
-          おはよう！
-    .chat-main__message-list__message-box
-      .chat-main__message-list__message-box__info
-        .username
-          masa
-        .daydata
-          2020/07/20(tue) 17:43:01
-      .chat-main__message-list__message-box__message
-        %p.comment
-          おはよう！
+    = render @messages   
         
 
   .chat-main__message-form
-    .chat-main__message-form__message-room
-      %input{type: "text", class: "room_text", placeholder: "type a message"}
-      %label{class: "input-box__image"}
-        = icon('fas', 'image')
-        %input{type: "file" , class: "input-box__imagefile"}
-    %input{type: "submit" , class:"submit" , value:"Send"}
+    = form_with model: [@group, @message], html: {class: "Form"}, local: true do |f|
+      .Form__message-room
+        = f.text_field :content, class: 'room_text', placeholder: 'type a message'
+        = f.label :image, class: 'input-box__image' do
+          = icon('far', 'image', class: 'Form__icon')
+          = f.file_field :image, class: 'input-box__imagefile'
+      = f.submit 'Send', class: 'submit'
+  -# .chat-main__message-form
+  -#   .chat-main__message-form__message-room
+  -#     %input{type: "text", class: "room_text", placeholder: "type a message"}
+  -#     %label{class: "input-box__image"}
+  -#       = icon('fas', 'image')
+  -#       %input{type: "file" , class: "input-box__imagefile"}
+  -#   %input{type: "submit" , class:"submit" , value:"Send"}
+
