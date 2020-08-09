@@ -2,7 +2,7 @@ $(function(){
   function buildHTML(message){
     if ( message.image ) {
       let html =
-        `<div class="chat-main__message-list__message-box">
+        `<div class="chat-main__message-list__message-box" data-message-id=${message.id}>
           <div class="chat-main__message-list__message-box__info">
             <div class="userName">
               ${message.user_name}
@@ -15,13 +15,13 @@ $(function(){
             <p class="comment">
               ${message.content}
             </p>
-            <img class="Message__image" src="${Message_image}">
+            <img class="Message__image" src="${message.image}">
           </div>
         </div>`
       return html;
     } else {
       let html =
-      `<div class="chat-main__message-list__message-box">
+      `<div class="chat-main__message-list__message-box" data-message-id=${message.id}>
         <div class="chat-main__message-list__message-box__info">
           <div class="userName">
             ${message.user_name}
@@ -40,7 +40,7 @@ $(function(){
     };
   }
   $('.Form').on('submit', function(e){
-    e.preventDefault()
+    e.preventDefault();
     let formData = new FormData(this);
     let url = $(this).attr('action');
     $.ajax({
@@ -53,13 +53,14 @@ $(function(){
     })
     .done(function(data){
       let html = buildHTML(data);
-      $('.chat-main__message-list').append(html);
-      $('.chat-main__message-list').animate({ scrollTop: $('.chat-main__message-list')[0].scrollHeight});
+      $('.chat-main__message-list').append(html);      
       $('form')[0].reset();
-      $('.submit').prop('disabled', false);
+      $('.chat-main__message-list').animate({ scrollTop: $('.chat-main__message-list')[0].scrollHeight});
+      $('.submit').prop("disabled", false);
     })
     .fail(function() {
       alert("メッセージ送信に失敗しました");
-    });  
+      $('.submit').prop("disabled", false);
+    });
   });
 });
